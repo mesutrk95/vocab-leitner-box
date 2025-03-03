@@ -26,7 +26,7 @@ export async function POST(request: Request) {
             data: {
                 userId: session?.user.id!,
                 content,
-                createdDate: new Date(),
+                createdAt: new Date(),
             },
         });
         return NextResponse.json(newNote, { status: 201 });

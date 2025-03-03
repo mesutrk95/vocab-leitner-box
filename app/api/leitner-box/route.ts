@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { NextResponse } from 'next/server';
 
-
 // GET /api/notes
 export async function GET() {
     try {
@@ -26,7 +25,7 @@ export async function POST(request: Request) {
             data: {
                 userId: session?.user.id!,
                 content,
-                createdDate: new Date(),
+                createdAt: new Date(),
             },
         });
         return NextResponse.json(newNote, { status: 201 });

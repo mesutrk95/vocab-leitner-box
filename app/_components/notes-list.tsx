@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 type Note = {
@@ -35,16 +36,28 @@ export const NotesList = () => {
   return (
     <div>
       <h2>Notes List</h2>
+      <div className="flex justify-between">
+        <Link href="/notes/create">Create New</Link>
+        <button onClick={getNotes}>Refresh</button>
+      </div>
       <ul className="flex flex-col gap-2">
         {notes.map((note) => (
           <li className="flex justify-between border p-4" key={note.id}>
             <div dangerouslySetInnerHTML={{ __html: note.content.html }}></div>
-            <button
-              className="text-red-500 bg-gray-100 p-2"
-              onClick={() => deleteNote(note.id)}
-            >
+            <div className="flex gap-2">
+              <Link
+                className="  bg-gray-200 p-2"
+                href={`/notes/edit/${note.id}`}
+              >
+                Edit
+              </Link>
+              <button
+                className="text-red-500 bg-gray-200 p-2"
+                onClick={() => deleteNote(note.id)}
+              >
                 X
-            </button>
+              </button>
+            </div>
           </li>
         ))}
       </ul>
