@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import JoditEditor from "jodit-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import dynamic from "next/dynamic";
+/* Using dynamic import of Jodit component as it can't render in server side*/
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 type Note = {
   id?: string;
@@ -21,7 +24,7 @@ export const CreateNote = ({
   placeholder?: string;
 }) => {
   const router = useRouter();
-  const editor = useRef(null);
+  // const editor = useRef(null);
   const [note, setNote] = useState<Note | null>(null);
 
   const getNote = (noteId: string) => {
@@ -79,7 +82,7 @@ export const CreateNote = ({
       <div className="flex gap-5 mb-5">
         <div>
           <JoditEditor
-            ref={editor}
+            // ref={editor}
             value={note?.content.html}
             config={config}
             tabIndex={1} // tabIndex of textarea
@@ -101,7 +104,7 @@ export const CreateNote = ({
         </div>
         <div>
           <JoditEditor
-            ref={editor}
+            // ref={editor}
             value={note?.content.responseHtml}
             config={config}
             tabIndex={1} // tabIndex of textarea
