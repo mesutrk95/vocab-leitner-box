@@ -6,9 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Account {
@@ -44,6 +44,7 @@ model User {
   password              String?
   role                  UserRole               @default(User)
   accounts              Account[]
+  notes                 Note[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
@@ -80,4 +81,20 @@ model TwoFactorConfirmation {
   userId  String   @unique
   expires DateTime
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Note {
+  id              String            @id @default(cuid())
+  userId          String
+  content         Json
+  createdDate     DateTime
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  LeitnerTraining LeitnerTraining[]
+}
+
+model LeitnerTraining {
+  id          String   @id @default(cuid())
+  noteId      String
+  updatedDate DateTime
+  note        Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
 }
