@@ -14,7 +14,7 @@
     "lint": "next lint",
     "prisma:update": "npx prisma generate && npx prisma db push",
     "prisma:clean": "npx prisma generate && npx prisma migrate reset && npx prisma db push",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && prisma db push",
     "prestart": "prisma db push"
   },
   "dependencies": {
