@@ -3,7 +3,6 @@ import { db } from "@/lib/db";
 import { withErrorHandling } from "@/lib/error-handler";
 import { NextResponse } from 'next/server';
 
-
 // GET /api/notes
 export const GET = withErrorHandling(async () => {
     const notes = await db.note.findMany();

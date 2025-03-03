@@ -36,8 +36,6 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     const { id } = params;
-    console.log(id);
-
     await db.note.delete({
         where: { id },
     });
