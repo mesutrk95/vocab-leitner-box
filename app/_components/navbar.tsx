@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserRound } from "lucide-react";
+import { LucideNotepadText, UserRound } from "lucide-react";
 import { signOut } from "@/auth";
 import Link from "next/link";
 import { currentUser } from "@/lib/auth";
@@ -23,7 +23,10 @@ async function AuthNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="pr-4 rounded-none h-fit flex gap-x-2 focus-visible:ring-offset-0">
+        <Button
+          variant="ghost"
+          className="pr-4 rounded-none h-fit flex gap-x-2 focus-visible:ring-offset-0"
+        >
           <Avatar>
             <AvatarImage src={user.image ?? ""} />
             <AvatarFallback>
@@ -85,12 +88,22 @@ async function AuthNav() {
   );
 }
 
+const LinkButton = ({ href, text }: { href: string; text: string }) => {
+  return (
+    <Link href={href}>
+      <li className="flex gap-2 items-center">
+        <LucideNotepadText size={16} /> {text}
+      </li>
+    </Link>
+  );
+};
+
 export default function Navbar() {
   return (
     <nav className="flex gap-x-4 items-center justify-between bg-gray-50 shadow-sm pl-4">
-      <Link href="/">
-        <h1 className="text-2xl font-semibold">Next Dashboard</h1>
-      </Link>
+      <ul className="flex">
+        <LinkButton href="/notes" text="Notes" />
+      </ul>
       <AuthNav />
     </nav>
   );

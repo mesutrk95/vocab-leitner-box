@@ -34,7 +34,10 @@ export const {
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);
-      if (!existingUser) return token;
+      if (!existingUser) {
+        token.isInvalid = true;
+        return token;
+      }
 
       const existingAccount = await getAccountByUserId(existingUser.id);
 
@@ -47,6 +50,9 @@ export const {
       return token;
     },
     async session({ token, session }) {
+      if (token.isInvalid) {
+        throw new Error('User is not valid.')
+      }
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }

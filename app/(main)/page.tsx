@@ -1,5 +1,6 @@
 import { currentUser } from "@/lib/auth";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -7,5 +8,6 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const user = await currentUser();
-  return <div>Hello {user?.name}</div>;
+  redirect('/notes')
+  // return <Redirect;
 }

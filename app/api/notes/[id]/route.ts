@@ -22,10 +22,10 @@ export const PUT = withErrorHandling(async (
     { params }: { params: { id: string } }
 ) => {
     const { id } = params;
-    const { content } = await request.json();
+    const { formattedContent, description, moreDetails, title } = await request.json();
     const updatedNote = await db.note.update({
         where: { id },
-        data: { content },
+        data: { description, moreDetails, formattedContent, title, updatedAt: new Date() },
     });
     return NextResponse.json(updatedNote);
 })

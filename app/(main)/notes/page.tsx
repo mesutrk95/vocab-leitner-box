@@ -8,9 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default async function Notes() {
-  return (
-    <div>
-      <NotesList />
-    </div>
-  );
+  return <NotesList />;
 }

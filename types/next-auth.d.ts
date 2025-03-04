@@ -5,6 +5,7 @@ export type ExtendedUser = DefaultSession["user"] & {
   role: UserRole;
   isTwoFactorEnabled: boolean;
   isOAuth: boolean;
+  isInvalid: boolean;
 };
 
 declare module "next-auth" {
@@ -14,7 +15,7 @@ declare module "next-auth" {
 }
 
 declare module "@auth/core/jwt" {
-  interface JWT extends ExtendedUser {}
+  interface JWT extends ExtendedUser { }
 }
 
 // declare module "next-auth/providers/github" {

@@ -84,13 +84,16 @@ model TwoFactorConfirmation {
 }
 
 model Note {
-  id         String       @id @default(cuid())
-  userId     String
-  content    Json
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @default(now())
-  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  LeitnerBox LeitnerBox[]
+  id               String       @id @default(cuid())
+  userId           String
+  title            String?
+  description      String?
+  moreDetails      String?
+  formattedContent Json
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @default(now())
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  LeitnerBox       LeitnerBox[]
 }
 
 model LeitnerTraining {

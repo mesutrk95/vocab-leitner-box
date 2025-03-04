@@ -9,17 +9,17 @@ export const { auth } = NextAuth(authConfig);
 export default async function middleware(req: NextRequest) {
   const { nextUrl } = req;
 
+  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  if (isApiAuthRoute) {
+    return;
+  }
+
   // Get session using the auth helper
   const session = await auth();
   const isLoggedIn = !!session;
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-
-  if (isApiAuthRoute) {
-    return;
-  }
 
   if (isAuthRoute) {
     if (isLoggedIn) {
